@@ -6,7 +6,7 @@ OUTPUT_FILE="orphan-vpcs.txt"
 
 > "$OUTPUT_FILE"
 
-VPC_IDS=$(aws ec2 describe-vpcs --query 'Vpcs[*].{VpcId:VpcId}' --output text)
+VPC_IDS=$(aws ec2 describe-vpcs --query 'Vpcs[?IsDefault==`false`].{VpcId:VpcId}' --output text)
 
 for VPC_ID in $VPC_IDS; do
     echo "Checking VPC: $VPC_ID"
